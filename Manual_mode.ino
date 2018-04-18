@@ -39,8 +39,10 @@ void setup() {
 }
 
 void loop() {
+  while(Serial3.available()){
   if(mode = 'm'){
     action = Serial3.read();
+
     
     switch(action){
       
@@ -51,10 +53,10 @@ void loop() {
       moveBackwardsDstyle(-3);
 
     case 'r' : // rotate right
-      rotateDstyle(5);
+      rotateDstyle(50);
       
     case 'l' : // rotate left
-      rotateDstyle(-5);
+      rotateDstyle(-50);
 
     case 'm' :// mode change
       mode = 'a';
@@ -65,18 +67,19 @@ void loop() {
       car.setSpeed(0);
       //car.stop();  
 
-    //default: car.stop(); // Might have to create another thing.
+      default: car.setSpeed(0); // Might have to create another thing.
      //manual_mode();
     }
   }
   else {
     // Put in automatic mode and parking here.
+    }
   }
 }
 
   void moveDstyle(int dir){
     if(NoCrashDstyle() && dir > 0){
-    car.go(80);
+    car.setSpeed(80);
     }
   }
 
