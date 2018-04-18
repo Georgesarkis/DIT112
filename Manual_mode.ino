@@ -39,68 +39,64 @@ void setup() {
 }
 
 void loop() {
-  while(Serial3.available()){
   if(mode = 'm'){
-    action = Serial3.read();
-
-    
-    switch(action){
+    while(Serial3.available()){
+     action = Serial3.read();
+     switch(action){
       
-    case 'f' : //Forward 
-      moveDstyle(3);
+     case 'f' : //Forward 
+      if(NoCrashFront){
+       car.setSpeed(80);
+       car.setAngle(0);
+      }
+      break;
       
-    case 'b' : //Backwards
-      moveBackwardsDstyle(-3);
-
-    case 'r' : // rotate right
-      rotateDstyle(50);
+     case 'b' : //Backwards
+      if(NoCrashBack){
+       car.setSpeed(-100);
+       car.setAngle(0);
+        }
+        break;
+        
+     case 'r' : // rotate right
+      car.setSpeed(45);
+      car.setAngle(80);
+      break;
       
-    case 'l' : // rotate left
-      rotateDstyle(-50);
+     case 'l' : // rotate left
+      car.setSpeed(45);
+      car.setAngle(-80);
+      break;
 
-    case 'm' :// mode change
+     case 'm' :// mode change
       mode = 'a';
       car.setSpeed(0);
-      //car.stop();
+      break;
       
-    case 's' :
+     case 's' :
       car.setSpeed(0);
-      //car.stop();  
+      break;  
 
       default: car.setSpeed(0); // Might have to create another thing.
      //manual_mode();
     }
   }
+  }
   else {
     // Put in automatic mode and parking here.
     }
   }
-}
-
-  void moveDstyle(int dir){
-    if(NoCrashDstyle() && dir > 0){
-    car.setSpeed(80);
-    }
-  }
-
-  void moveBackwardsDstyle(int dir){
-    car.setSpeed(-80);
-  }
-
-  void rotateDstyle(int dir){
-    car.setAngle(dir);
-  }
   
-  boolean NoCrashDstyle(){
-  if(frontUltra.getDistance() > 0 && frontUltra.getDistance()> 6){
+  boolean NoCrashFront(){
+  if(frontUltra.getDistance() > 0 && frontUltra.getDistance()> 10){
     return false;
     car.setSpeed(0);
   }
   return true;
 }
 
-boolean NoCrashDoggyStyle(){
-  if(ir.getDistance() > 0 && ir.getDistance()> 6){
+boolean NoCrashBack(){
+  if(ir.getDistance() > 0 && ir.getDistance()> 10){
     return false;
     car.setSpeed(0);
   }
