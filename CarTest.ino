@@ -1,21 +1,24 @@
 #include <Smartcar.h>
+
 Odometer encoder;
 Gyroscope gyro;
 Car car;
 SR04 sideUltra;
 SR04 frontUltra;
+GP2D120 ir;
+
 const int SIDE_TRIGGER = 6;
 const int SIDE_ECHO = 5;
-const int encoderPin = 2;
-const int FRONT_TRIGGER = 6;
-const int FRONT_ECHO = 5;
-const int INFRARED_PIN = 15;
-GP2D120 ir;
+const int EncoderPin = 2;
+const int FRONT_TRIGGER = 8;
+const int FRONT_ECHO = 7;
+const int IR_PIN = 15;
+
 void setup() {
   Serial.begin(9600);
   gyro.attach();
-  ir.attach(INFRARED_PIN);
-  encoder.attach(encoderPin);
+  ir.attach(IR_PIN);
+  encoder.attach(EncoderPin);
   sideUltra.attach(SIDE_TRIGGER, SIDE_ECHO);
   frontUltra.attach(FRONT_TRIGGER, FRONT_ECHO);
   gyro.begin();
@@ -26,8 +29,7 @@ void loop() {
  if (findPlace()) {
     car.setSpeed(0);
     delay(800);
-    makeParkR2();
-  //  alignPark();
+    makeParkR();
     while(true){}
   }
   else {
@@ -35,7 +37,10 @@ void loop() {
     car.setAngle(-10);
   }
 }
+
+
 //Tries to find a parking space of size 35cm, returns true
+
 boolean findPlace(){
 if(sideUltra.getDistance() == 0 || sideUltra.getDistance() > 30 ){
   encoder.begin();
@@ -44,14 +49,8 @@ if(sideUltra.getDistance() == 0 || sideUltra.getDistance() > 30 ){
     if(encoder.getDistance() > 35) {
       car.setSpeed(0);
       car.setAngle(0);
-      encoder.begin();
-      while(encoder.getDistance () < 12) {
-        car.setSpeed(30);
-      }
-      car.setSpeed(0);
-      delay(500);
       return true;
-    //  makeParkRotate();
+
       }
     }
   }
@@ -59,28 +58,45 @@ if(sideUltra.getDistance() == 0 || sideUltra.getDistance() > 30 ){
     return false;
    }
   }
+
+
 //Method for backing up into the parking space once it's found it, using rotate
+
 void makeParkR(){
- //car.setSpeed(-20);
+  
+int gy = gyro.getAngularDisplacement() ;
  gyro.update();
-  while(gyro.getAngularDisplacement() > 345 || gyro.getAngularDisplacement() == 0) {
+  while(gy > 335 || gy == 0) {
+    gy = gyro.getAngularDisplacement() ;
     car.rotate(-5);
-    delay(500);
+    car.setSpeed(0);
+    delay(400);
   }
  car.setSpeed(0);
  delay(500);
-  gyro.update();
-  while(ir.getDistance() > 6 || ir.getDistance() == 0) {
-      Serial.println( ir.getDistance());
-    car.setSpeed(-30);
+int irs =  ir.getDistance() ;
+  
+  while(irs > 6) {
+    irs =  ir.getDistance() ;
+    car.setSpeed(-25);
   }
   car.setSpeed(0);
   delay(1000);
-  //car.setSpeed(30);
-  gyro.update();
-  car.rotate(15);
+  
+  while(gy > 7){
+  gy = gyro.getAngularDisplacement() ;
+  car.rotate(4);
   car.setSpeed(0);
+  delay(400);
+  }
+  
+car.rotate(-5);
+car.go(-5);
+car.setSpeed(0);
+  
 }
+
+
 //Method for backing up into the parking space once it's found it, using setAngle
 void makeParkR2(){
  gyro.update();
@@ -126,7 +142,4 @@ boolean isAligned() {
   }
 }
 
-void alignPark() {
-    
-  }
 
