@@ -7,8 +7,8 @@ SR04 frontUltra;
 const int SIDE_TRIGGER = 6;
 const int SIDE_ECHO = 5;
 const int encoderPin = 2;
-const int FRONT_TRIGGER = 6;
-const int FRONT_ECHO = 5;
+const int FRONT_TRIGGER = 8 ;
+const int FRONT_ECHO = 7 ;
 const int INFRARED_PIN = 15;
 GP2D120 ir;
 void setup() {
