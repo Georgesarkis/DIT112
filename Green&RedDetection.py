@@ -66,10 +66,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             if area > max_area:
                 max_area = area
                 best_cnt = cnt
+	#will pass r input to arduino if the red is more than 25000
         if max_area > 25000:
             time.sleep(5)
-            ser.write('3')
-        print 'red'+str(max_area)
+            ser.write('r')
+       #  print 'red'+str(max_area)
         
         #thresh3 = cv2.inRange(hsv,np.array((120, 80, 80)), np.array((180, 255, 255)))
 
@@ -89,10 +90,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             if area2 > max_area2:
                 max_area2 = area2
                 best_cnt2 = cnt2
-        #if max_area > 25000:
-            #time.sleep(5)
-            #ser.write('3')
-        print 'green'+str(max_area2)
+        #will pass g input to arduino if the red is more than 25000
+	if max_area > 25000:
+            time.sleep(5)
+            ser.write('g')
+        #print 'green'+str(max_area2)
 
             
         # Show the original and processed image
