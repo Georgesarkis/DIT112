@@ -92,7 +92,7 @@ void loop() {
     			car.setSpeed(0);
     			delay(800);
     			makeParkRotate();
-    		  //  alignPark();
+    		    alignPark();
     			break;
   		  }
        
@@ -127,12 +127,12 @@ void loop() {
 
 //Tries to find a parking space of size 35cm, returns true
 boolean findPlace(){
-  //int sideDist = sideUltra.getDistance();
+  int sideDist = sideUltra.getDistance();
 if(sideDist == 0 || sideDist > 30 ){
   encoder.begin();
   car.setSpeed(30);
   while(sideDist == 0 || sideDist > 30){
-    //sideDist = sideUltra.getDistance();
+    sideDist = sideUltra.getDistance();
     if(encoder.getDistance() > 35) {
       car.setSpeed(0);
       car.setSpeed(0);
@@ -159,10 +159,10 @@ void makeParkRotate(){
   }
  car.setSpeed(0);
  delay(500);
-  //int irDist = ir.getDistance();
+  int irDist = ir.getDistance();
   while(irDist > 5 ) {
     car.setSpeed(-25);
-    //irDist = ir.getDistance();
+    irDist = ir.getDistance();
   }
   car.setSpeed(0);
   delay(500);
