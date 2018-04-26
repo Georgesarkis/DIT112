@@ -20,7 +20,6 @@ int sideDist, frontDist, irDist;
 char pi;
 //if pi sees red object this will false, and it will not start moving until it sees grean object
 boolean color;
-boolean parking;
 
 void setup() {
   //bluetooth serial
@@ -39,8 +38,6 @@ void setup() {
   action = 0;
   //default mode when first time the car is started
   color = true; 
-
-  parking = false;
   
 }
 void loop() {
@@ -51,7 +48,6 @@ void loop() {
   
   //reads from bluetooth only when the color is true which mean raspberry pi seen a green object
 	while(Serial2.available() && color == true){
-     parking = false;
      action = Serial2.read();
      switch(action){
       
@@ -87,12 +83,12 @@ void loop() {
  
 	 
   	 case 'p': // starts the parking mode
-        parking = true;
+        while(!Serial2.available()){
   			if (findPlace()) { //if car found good place to park the car will start parking
     			car.setSpeed(0);
     			delay(800);
     			makeParkRotate();
-    		    alignPark();
+    		   // alignPark();
     			break;
   		  }
        
@@ -100,13 +96,12 @@ void loop() {
     			car.setSpeed(30);
     			car.setAngle(0);
   		  }
-       
+       }
+        
      //default mode where car will stop whatever input it gets that is not a case from the bluetooth
      default: car.setSpeed(0); // Might have to create another thing.
       }
   }
-  
-  if(parking == false){
     if(car.getSpeed()<0){
     if(irDist != 0 && irDist < 15){
       car.setSpeed(0);
@@ -118,9 +113,7 @@ void loop() {
       car.setSpeed(0);
       car.setAngle(0);
     }
-    
-  }
-  }
+    }
   
   
 }
