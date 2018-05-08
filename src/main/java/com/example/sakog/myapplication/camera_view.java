@@ -24,17 +24,17 @@ public class camera_view extends Activity {
     SensorManager sensorManager;
     Sensor sensor;
 
-    String address = null;
-    private ProgressDialog progress;
-    BluetoothAdapter myBluetooth = null;
+    //String address = null;
+    //private ProgressDialog progress;
+    //BluetoothAdapter myBluetooth = null;
     static BluetoothSocket btSocket = null;
-    private boolean isBtConnected = false;
-    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    //private boolean isBtConnected = false;
+    //static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private WebView webView;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.camera_view_layout);
         //sensor reading
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE_UNCALIBRATED);
@@ -129,10 +129,14 @@ public class camera_view extends Activity {
             }
         }
     };
+
+
     //bluetooth connection
     public static void getSocket(BluetoothSocket Socket){
         btSocket = Socket;
     }
+
+
     //send input to arduino
     private void sendMessage(String rMsg){
         if (btSocket!=null) {

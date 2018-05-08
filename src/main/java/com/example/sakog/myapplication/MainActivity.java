@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private static final int VALID_COMMAND_SIZE = VALID_COMMANDS.length;
 
-    private boolean parkingStatus = false;
+    //private boolean parkingStatus = false;
 
     //BUTTONS
     TextView textView;
@@ -89,7 +89,18 @@ public class MainActivity extends AppCompatActivity {
 
             public void onStopTrackingTouch(SeekBar seekBar) {
                 textView.setText(Integer.toString(progressChangedValue));
-                sendMessage(Integer.toString(progressChangedValue));
+                if(progressChangedValue < 25){
+                    sendMessage("1");
+                }
+                else if (progressChangedValue < 50 ){
+                    sendMessage("2");
+                }
+                else if (progressChangedValue < 75 ){
+                    sendMessage("3");
+                }
+                else{
+                    sendMessage("4");
+                }
             }
         });
         //On touch listener for the voice contral
@@ -113,9 +124,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view,MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN) { //MotionEvent.ACTION_DOWN is when you hold a button down
                     command = "b";
+                    sendMessage(command);
                     }
                 else if (event.getAction() == MotionEvent.ACTION_UP) { //MotionEvent.ACTION_UP is when you release a button
                     command = "s";
+                    sendMessage(command);
                     }
                 return false;
             }
@@ -126,9 +139,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view,MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN) { //MotionEvent.ACTION_DOWN is when you hold a button down
                     command = "f";
+                    sendMessage(command);
                     }
                 else if(event.getAction() == MotionEvent.ACTION_UP){ //MotionEvent.ACTION_UP is when you release a button
                     command = "s";
+                    sendMessage(command);
                     }
 
                 return false;
@@ -140,9 +155,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view,MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN){ //MotionEvent.ACTION_DOWN is when you hold a button down
                     command = "l";
+                    sendMessage(command);
                 }
                 else if(event.getAction() == MotionEvent.ACTION_UP){ //MotionEvent.ACTION_UP is when you release a button
                     command = "s";
+                    sendMessage(command);
                 }
                 return false;
             }
@@ -153,9 +170,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view,MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN){ //MotionEvent.ACTION_DOWN is when you hold a button down
                     command = "r";
+                    sendMessage(command);
                 }
                 else if(event.getAction() == MotionEvent.ACTION_UP){ //MotionEvent.ACTION_UP is when you release a button
                     command = "S";
+                    sendMessage(command);
                 }
                 return false;
             }
@@ -163,24 +182,28 @@ public class MainActivity extends AppCompatActivity {
         parkingMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!parkingStatus) {
+                //if (!parkingStatus) {
                     command = "p";
                     parkingMode.setImageResource(R.drawable.stop);
-                    parkingStatus = true;
-                }
-                else {
+                //    parkingStatus = true;
+                    sendMessage(command);
+                //}
+                /*else {
                     command = "m";
                     parkingMode.setImageResource(R.drawable.parking);
                     parkingStatus = false;
-                }
+                    sendMessage(command);
+                }*/
             }
         });
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent startIntent = new Intent(getApplicationContext(),camera_view.class);
-                camera_view.getSocket(btSocket);
+
                 //TO pass information to second screen
+                camera_view.getSocket(btSocket);
+
                 startActivity(startIntent);
             }
         });
