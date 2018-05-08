@@ -34,6 +34,7 @@ const int FRONT_TRIGGER = 30 ;
 const int FRONT_ECHO = 31 ;
 const int encoderPin = 2;
 const int INFRARED_PIN = 15;
+int speed = 30;
 
 
 
@@ -100,7 +101,7 @@ void loop() {
      case 'f' :
 
       if(frontDist == 0 || frontDist > 15){
-       car.setSpeed(35);
+       car.setSpeed(speed);
        car.setAngle(0);
       }
       else {
@@ -112,7 +113,7 @@ void loop() {
      case 'b' :
 
       if(irDist == 0 || irDist > 15){
-       car.setSpeed(-35);
+       car.setSpeed(-speed);
        car.setAngle(0);
         }
         else {
@@ -150,6 +151,21 @@ void loop() {
           car.setAngle(0);
         }
        }
+	  case '1': //set speed to 25
+	  speed = 15;
+	  break;
+
+	  case '2': //set speed to 50
+	  speed = 30;
+	  break;
+
+	  case '3': //set speed to 75
+	  speed = 45;
+	  break;
+
+	  case '4': //set speed to 100
+	  speed = 60;
+	  break;
 
   //default mode where car will stop whatever input it gets that is not a case from the bluetooth
      default: car.setSpeed(0);
@@ -217,7 +233,7 @@ void makeParkRotate(){
 /* Rotate 20 Degree opposite clockwise after the car find place to park and stop */
   while(gy > 340 || gy == 0) { // <-- While the car is not 20 Degree opposite clockwise
     gy = gyro.getAngularDisplacement(); // <-- Update car angle
-    car.rotate(-5); // <-- Rotate the car 5 Degree opposite clockwise
+    car.rotate(-7); // <-- Rotate the car 5 Degree opposite clockwise
     car.setSpeed(0); // <-- Stop the car a bit
     delay(400); // <-- Wait 400 ms
   }
