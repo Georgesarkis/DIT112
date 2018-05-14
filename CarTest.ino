@@ -24,18 +24,22 @@ char rOrG;
 // To detect color from Pi ... True --> Green   False --> Red
 boolean color;
 
+int val;
+
+float volts;
 
 
 // Pins on Arduino board:
-
 const int SIDE_TRIGGER = 6;
 const int SIDE_ECHO = 5;
 const int FRONT_TRIGGER = 30 ;
 const int FRONT_ECHO = 31 ;
 const int encoderPin = 2;
 const int INFRARED_PIN = 15;
+const int batteryPin = 0;  // battery is connected to analog pin 0
 int speed = 30;
 
+const float referenceVolts = 5.0; // the default reference on a 5-volt board
 
 
 void setup() {
@@ -151,21 +155,29 @@ void loop() {
           car.setAngle(0);
         }
        }
-	  case '1': //set speed to 25
-	  speed = 15;
-	  break;
+    case '1': //set speed to 25
+    speed = 15;
+    break;
 
-	  case '2': //set speed to 50
-	  speed = 30;
-	  break;
+    case '2': //set speed to 50
+    speed = 30;
+    break;
 
-	  case '3': //set speed to 75
-	  speed = 45;
-	  break;
+    case '3': //set speed to 75
+    speed = 45;
+    break;
 
-	  case '4': //set speed to 100
-	  speed = 60;
-	  break;
+    case '4': //set speed to 100
+    speed = 60;
+    break;
+
+    case 'v':
+    val = analogRead(batteryPin); // read the value from the sensor 
+    volts = (val / 1023.0) * referenceVolts; // calculate the ratio
+    Serial2.print("Volts: ");
+    Serial2.println(volts); // print the value in volts
+    delay(500);
+    break; 
 
   //default mode where car will stop whatever input it gets that is not a case from the bluetooth
      default: car.setSpeed(0);
@@ -270,4 +282,3 @@ void makeParkRotate(){
   car.go(-5); // <-- Going backward 5 cm
   car.setSpeed(0); // <-- Stop the car
 
-}
