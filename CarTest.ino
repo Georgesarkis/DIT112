@@ -86,9 +86,11 @@ void loop() {
 
   if(rOrG == 'g') {
     color = true;
+    Serial2.println("green object detected");
   }
   else if(rOrG == 'r') {
     color = false;
+    Serial2.println("red object detected");
   }
 
 
@@ -174,10 +176,40 @@ void loop() {
     case 'v':
     val = analogRead(batteryPin); // read the value from the sensor 
     volts = (val / 1023.0) * referenceVolts; // calculate the ratio
-    Serial2.print("Volts: ");
-    Serial2.println(volts); // print the value in volts
-    delay(500);
-    break; 
+    //Serial2.print("Volts: ");
+    //Serial2.println(volts); // print the value in volts
+      if(volts == 5.0){
+        Serial2.println("Battery is 100%");
+      }
+      else if(volts > 4.5){
+        Serial2.println("Battery is 90%");
+      }
+      else if(volts > 4){
+        Serial2.println("Battery is 80%");
+      }
+      else if(volts > 3.5){
+        Serial2.println("Battery is 70%");
+      }
+      else if(volts > 3){
+        Serial2.println("Battery is 60%");
+      }
+      else if(volts > 2.5){
+        Serial2.println("Battery is 50%");
+      }
+      else if(volts > 2){
+        Serial2.println("Battery is 40%");
+      }
+      else if(volts > 1.5){
+        Serial2.println("Battery is 30%");
+      }
+      else if(volts > 1){
+        Serial2.println("Battery is 20%");
+      }
+      else{
+        Serial2.println("Battery is critical");
+      }
+      
+      break; 
 
   //default mode where car will stop whatever input it gets that is not a case from the bluetooth
      default: car.setSpeed(0);
