@@ -24,6 +24,9 @@ char rOrG;
 // To detect color from Pi ... True --> Green   False --> Red
 boolean color;
 
+int val;
+
+float volts;
 
 
 // Pins on Arduino board:
@@ -152,25 +155,25 @@ void loop() {
           car.setAngle(0);
         }
        }
-	  case '1': //set speed to 25
-	  speed = 15;
-	  break;
+    case '1': //set speed to 25
+    speed = 15;
+    break;
 
-	  case '2': //set speed to 50
-	  speed = 30;
-	  break;
+    case '2': //set speed to 50
+    speed = 30;
+    break;
 
-	  case '3': //set speed to 75
-	  speed = 45;
-	  break;
+    case '3': //set speed to 75
+    speed = 45;
+    break;
 
-	  case '4': //set speed to 100
-	  speed = 60;
-	  break;
+    case '4': //set speed to 100
+    speed = 60;
+    break;
 
     case 'k':
-    int val = analogRead(batteryPin); // read the value from the sensor 
-    float volts = (val / 1023.0) * referenceVolts; // calculate the ratio
+    val = analogRead(batteryPin); // read the value from the sensor 
+    volts = (val / 1023.0) * referenceVolts; // calculate the ratio
     Serial.print("Volts: ");
     Serial.println(volts); // print the value in volts
     delay(500);
