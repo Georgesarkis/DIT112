@@ -27,15 +27,16 @@ boolean color;
 
 
 // Pins on Arduino board:
-
 const int SIDE_TRIGGER = 6;
 const int SIDE_ECHO = 5;
 const int FRONT_TRIGGER = 30 ;
 const int FRONT_ECHO = 31 ;
 const int encoderPin = 2;
 const int INFRARED_PIN = 15;
+const int batteryPin = 0;  // battery is connected to analog pin 0
 int speed = 30;
 
+const float referenceVolts = 5.0; // the default reference on a 5-volt board
 
 
 void setup() {
