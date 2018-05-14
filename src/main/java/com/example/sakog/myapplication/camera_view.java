@@ -43,7 +43,7 @@ public class camera_view extends Activity {
         // creating the web page and reading the url
         webView = findViewById(R.id.webView1);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://www.google.com");
+        webView.loadUrl("http://192.168.0.101:8000");
 
         //to make it run the page in the app not in default browser
         webView.setWebViewClient(new WebViewClient(){
@@ -76,7 +76,7 @@ public class camera_view extends Activity {
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
-            x = (int)x;
+            //x = (int)x;
             y = (int)y;
             z = (int)z;
             //on portrait mode the +x goes to backward -x goes to forward
@@ -87,7 +87,7 @@ public class camera_view extends Activity {
 
             //we are going to use in portrait mode
             String direction = "stop";
-            if(x > 0){
+            if(y > 0){
                 if(direction.equals("forward")){
                     sendMessage("s");
                     direction = "stop";
@@ -97,7 +97,7 @@ public class camera_view extends Activity {
                     direction = "backward";
                 }
             }
-            if(x < 0){
+            if(y < 0){
                 if(direction.equals("backward")){
                     sendMessage("s");
                     direction = "stop";

@@ -18,12 +18,13 @@
         <activity android:name=".bluetooth_list">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".camera_view"></activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".camera_view"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
