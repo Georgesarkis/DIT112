@@ -171,11 +171,11 @@ void loop() {
     speed = 60;
     break;
 
-    case 'k':
+    case 'v':
     val = analogRead(batteryPin); // read the value from the sensor 
     volts = (val / 1023.0) * referenceVolts; // calculate the ratio
-    Serial.print("Volts: ");
-    Serial.println(volts); // print the value in volts
+    Serial2.print("Volts: ");
+    Serial2.println(volts); // print the value in volts
     delay(500);
     break; 
 
