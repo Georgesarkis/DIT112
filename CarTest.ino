@@ -86,9 +86,11 @@ void loop() {
 
   if(rOrG == 'g') {
     color = true;
+    Serial2.println("green object detected");
   }
   else if(rOrG == 'r') {
     color = false;
+    Serial2.println("red object detected");
   }
 
 
