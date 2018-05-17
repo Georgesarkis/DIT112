@@ -247,7 +247,7 @@ void makeParkRotate(){
 /* Rotate 20 Degree opposite clockwise after the car find place to park and stop */
   while(gy > 340 || gy == 0) { // <-- While the car is not 20 Degree opposite clockwise
     gy = gyro.getAngularDisplacement(); // <-- Update car angle
-    car.rotate(-7); // <-- Rotate the car 5 Degree opposite clockwise
+    car.rotate(-5); // <-- Rotate the car 5 Degree opposite clockwise
     car.setSpeed(0); // <-- Stop the car a bit
     delay(400); // <-- Wait 400 ms
   }
@@ -274,7 +274,7 @@ void makeParkRotate(){
   while( gy > 7 ) {  // <-- While the car is not nearly 5 -- 7 Degree clockwise
 
     gy = gyro.getAngularDisplacement();  // <-- Update car angle
-    car.rotate(4);  // <-- Rotate the car 4 Degree clockwise
+    car.rotate(5);  // <-- Rotate the car 4 Degree clockwise
     car.setSpeed(0); // <-- Stop the car a bit
     delay(400); // <-- Wait 400 ms
   }
