@@ -84,11 +84,11 @@ void loop() {
     rOrG = Serial.read();
   }
 
-  if(rOrG == 'g') {
+  if(rOrG == 'g' && color == false) {
     color = true;
     Serial2.println("green object detected");
   }
-  else if(rOrG == 'r') {
+  else if(rOrG == 'r' && color == true) {
     color = false;
     Serial2.println("red object detected");
   }
